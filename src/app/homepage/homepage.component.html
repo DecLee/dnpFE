@@ -1,0 +1,25 @@
+<div class='post'>
+    <ul>
+        <li *ngFor="let item of data; let i = index">
+            <div class='container-title'>
+                <div class="subreddit">{{i}} {{item.data.subreddit }}</div>
+                <!--<h5>{{ item.data.subreddit }}</h5> -->
+                <img class="thumbnail" [src]="item.data.thumbnail" *ngIf="item.data.thumbnail !== 'default' && item.data.thumbnail !== 'self' && item.data.thumbnail !== 'nsfw'">
+                <!--<h1>{{ item.data.title }}</h1>-->
+                <a href={{item.data.url}} *ngIf="item.data.is_video || item.data.domain !=='reddit'">{{item.data.title}}</a>
+                <!--comments are noobs--><!--sc_on-->
+                <div>{{item.data.url}}</div>
+                <!--<html>{{ item.data.selftext_html }}</html>-->
+                <div *ngIf="item.data.selftext_html!=='null'">
+                    <p [innerHTML]="item.data.selftext_html"></p>
+                </div>
+                <div *ngIf="item.data.is_reddit_media_domain && !item.data.is_video">
+                    <img [src]="item.data.url">
+                </div>
+                <div class='video' *ngIf="item.data.domain==='youtu.be' || item.data.domain==='gfycat.com'">
+                    <iframe width="100%" height="100%" [src]="item.data.url | sanitizeUrl" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
