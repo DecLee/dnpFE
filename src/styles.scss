@@ -1,17 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'assets/variables' as v;
 body {
     margin: 0;
     font-family: 'Nunito', 'sans-serif';
     font-size: 18px;
+    background: rgb(20, 20, 20);
+    color: white;
 }
 
 .container{
     width: 80%;
     margin: 0 auto;
+    ul{
+        li{
+            list-style-type:none;
+        }
+    }
 }
 
 header {
-    background: red;
+    background: rgb(40, 40, 40);
     padding: 1em 0;
 
     a {
@@ -30,9 +38,25 @@ header {
                 padding: 1em;
 
                 &:hover {
-                    background: darken(red,10%)
+                    background: darken(black,10%)
                 }
             }
         }
     }
 }
+
+.accordion {
+    mat-expansion-panel{
+        background:rgb(40,40,40);
+
+    }
+    mat-expansion-panel-header{
+        background:rgb(40,40,40);
+        margin-bottom: 10px;
+    }
+    
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

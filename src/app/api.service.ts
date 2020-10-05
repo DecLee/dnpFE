@@ -14,7 +14,7 @@ export class APIService {
   }
 
   getRedditHomepage(){
-    return this.http.get('https://www.reddit.com/.json');
+    return this.http.get('https://www.reddit.com/r/pics.json');
   }
 
   htmlDecode(input:any) {

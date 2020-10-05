@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { APIService } from '../api.service';
 import { map, flatMap } from 'rxjs/operators';
 import { DomSanitizer } from  '@angular/platform-browser';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-homepage',
@@ -9,12 +10,17 @@ import { DomSanitizer } from  '@angular/platform-browser';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+  //@ViewChild(MatAccordion) accordion: MatAccordion;
 
   data:object [];
   selftext_arr: object [];
   safeURL:any;
   longURL:string;
   alteredUrl:string;
+  matchUrl: any;
+  matchThumbnail: any;
+
+  thumbnailPlaceholder="../../assets/images/thumbnail_placeholder.jpg";
 
   constructor(private API: APIService, private _sanitizer: DomSanitizer) { 
 
@@ -31,11 +37,26 @@ export class HomepageComponent implements OnInit {
       for(let i=0; i < data.data.children.length; i++){
         //console.log(data.data.children[i].data.selftext_html);
         data.data.children[i].data.selftext_html = this.htmlDecode(data.data.children[i].data.selftext_html);
-        if(data.data.children[i].data.domain == 'youtu.be'){
-          data.data.children[i].data.url = this.changeYoutubeURL(data.data.children[i].data.url);
+        this.matchUrl = data.data.children[i].data.domain.match('youtu.be');
+        if(this.matchUrl != "null"){
+          data.data.children[i].data.url = this.changeYoutubeURL2(data.data.children[i].data.url);
         }
-        else if(data.data.children[i].data.domain == 'gfycat.com'){
+        this.matchUrl = data.data.children[i].data.domain.match('m.youtube');
+        if(this.matchUrl != "null"){
+          data.data.children[i].data.url = this.changeMYoutubeURL(data.data.children[i].data.url);
+        }
+        this.matchUrl = data.data.children[i].data.domain.match('youtube');
+        if(this.matchUrl != "null"){
+          data.data.children[i].data.url = this.changeMYoutubeURL(data.data.children[i].data.url);
+        }
+        if(data.data.children[i].data.domain == 'gfycat.com'){
           data.data.children[i].data.url = this.changeGfycatUrl(data.data.children[i].data.url);
+        }
+        //console.log(data.data.children[i].data.thumbnail);
+        this.matchThumbnail = data.data.children[i].data.thumbnail.match('redditmedia');
+        //console.log(this.matchThumbnail);
+        if(this.matchThumbnail == null){
+          data.data.children[i].data.thumbnail = "null";
         }
         //console.log(data.data.children[i].data.selftext_html);
       }
@@ -55,8 +76,18 @@ export class HomepageComponent implements OnInit {
     return this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL);
   }
 
+  changeYoutubeURL2(shortURL:string){
+    this.longURL = shortURL.replace("youtu.be","youtube.com/embed");
+    //this.longURL = shortURL.replace("m.youtube.com","youtube.com")
+    return this.longURL = this.longURL.replace("watch?v=","embed/");
+  }
+
   changeYoutubeURL(shortURL:string){
-    return this.longURL = shortURL.replace("youtu.be","youtube.com/embed");
+    return this.longURL = shortURL.replace("watch?v=","embed/");
+  }
+  changeMYoutubeURL(shortURL:string){
+    this.longURL = shortURL.replace("m.youtube.com","youtube.com");
+    return this.longURL = this.longURL.replace("watch?v=","embed/");
   }
 
   changeGfycatUrl(original:string){
