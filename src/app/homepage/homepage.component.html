@@ -1,5 +1,36 @@
-<app-subreddit></app-subreddit>
-<div class='container'>
+<!--<form >
+    <p>Search a specific subreddit</p>
+    <mat-form-field appearance="outline">
+        <mat-label>/r/subreddit</mat-label>
+        <input matInput>
+        <mat-hint align="end" class="red">ie. music</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>sort by</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let sort of sortBy" [value]="sort.value">
+                {{sort.value}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>number of posts</mat-label>
+        <input matInput [(ngModel)]="numPost">
+        <mat-hint align="end" class="red" >value between 1-100</mat-hint>
+    </mat-form-field>
+    <button>boo!</button>
+    <p>selectedSort: {{selectSort}}</p>
+    <p>selected Num Post: {{numPost}}</p>
+</form>-->
+<form [formGroup]="queryForm" (ngSubmit)="onSubmit()"> 
+    <label>/r/subreddit</label>
+    <input type="text" formControlName="subredditForm" placeholder="ex. music">
+
+    <label>Number of Posts</label>
+    <input type="text" formControlName="numPostForm" placeholder="1-100">
+    <button type="submit" [disabled]="!queryForm.valid">Go</button>
+</form>
+<div>
     <mat-accordion class="accordion" multi>
     <ul>
         <li *ngFor="let item of data; let i = index">
@@ -13,34 +44,31 @@
                     <a href={{item.data.url}} *ngIf="item.data.is_video || item.data.domain !=='reddit'">{{item.data.title}}</a>
                 </div>-->
                 
-                <div>{{item.data.url}}</div>
-                
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
-                            <mat-panel-title>
-                                <img class="thumbnail" [src]="item.data.thumbnail" *ngIf="item.data.thumbnail !== 'null'; else elseBlock">
-                                <ng-template #elseBlock>
-                                    <img class="thumbnail" [src]="thumbnailPlaceholder">
-                                </ng-template>
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                <a class="post-title" href={{item.data.url}} *ngIf="item.data.is_video || item.data.domain !=='reddit'">{{item.data.title}}</a>
-                            </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div *ngIf="item.data.selftext_html!=='null'">
-                            <p [innerHTML]="item.data.selftext_html"></p>
-                        </div>
-                        <div class="max-width" *ngIf="item.data.is_reddit_media_domain && item.data.is_video===false">
-                            <img  [src]="item.data.url">
-                        </div>
-                        <div class='video' *ngIf="item.data.domain==='youtu.be' || item.data.domain==='gfycat.com' || item.data.domain==='youtube.com'">
-                            <iframe width="auto" height="auto" [src]="item.data.url | sanitizeUrl" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                    </mat-expansion-panel>
-
-                
+                <!--<div>{{item.data.url}}</div>-->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
+                        <mat-panel-title>
+                            <img class="thumbnail" [src]="item.data.thumbnail" *ngIf="item.data.thumbnail !== 'null'; else elseBlock">
+                            <ng-template #elseBlock>
+                                <img class="thumbnail" [src]="thumbnailPlaceholder">
+                            </ng-template>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <a class="post-title" href={{item.data.url}} *ngIf="item.data.is_video || item.data.domain !=='reddit'">{{item.data.title}}</a>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="item.data.selftext_html!=='null'">
+                        <p [innerHTML]="item.data.selftext_html"></p>
+                    </div>
+                    <div class="max-width" *ngIf="item.data.is_reddit_media_domain && item.data.is_video===false">
+                        <img  [src]="item.data.url">
+                    </div>
+                    <div class='video' *ngIf="item.data.domain==='youtu.be' || item.data.domain==='gfycat.com' || item.data.domain==='youtube.com'">
+                        <iframe width="auto" height="auto" [src]="item.data.url | sanitizeUrl" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </mat-expansion-panel>
             </div>
         </li>
     </ul>
-</mat-accordion>
+    </mat-accordion>
 </div>

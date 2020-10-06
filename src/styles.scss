@@ -45,6 +45,31 @@ header {
     }
 }
 
+mat-form-field{
+    background:rbg(20,20,20);
+    
+    mat-label{
+        color:red;
+    }
+    mat-hint{
+        color:red;
+    }
+    mat-option{
+        mat-option-text{
+            color:red;
+        }
+        mat-active {
+            color: blue !important;
+          }
+          
+        mat-selected {
+            color: red !important;
+          }
+    }
+}
+
+
+
 .accordion {
     mat-expansion-panel{
         background:rgb(40,40,40);
@@ -52,7 +77,7 @@ header {
     }
     mat-expansion-panel-header{
         background:rgb(40,40,40);
-        margin-bottom: 10px;
+        margin: 10px 0px 10px 0px;
     }
     
 }

@@ -14,7 +14,17 @@ export class APIService {
   }
 
   getRedditHomepage(){
-    return this.http.get('https://www.reddit.com/r/pics.json');
+    return this.http.get('https://www.reddit.com/.json');
+  }
+
+  getSubredditPosts(subreddit:string, sortBy:string, numPost:string){
+    if(subreddit==""){
+      return this.http.get('https://www.reddit.com/' + sortBy + '.json?limit=' + numPost);
+    }
+    else{
+      return this.http.get('https://www.reddit.com/r/' + subreddit + '/' + sortBy + '/.json?limit=' + numPost);
+    }
+    
   }
 
   htmlDecode(input:any) {
