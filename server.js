@@ -9,6 +9,7 @@ app.use(express.static(__dirname + '/dist/dnp-reddit-fe'));
 
 app.get('/*', function(req,res) {
     
+console.log(__dirname);
 res.sendFile(path.join(__dirname+'/dist/dnp-reddit-fe/index.html'));
 });
 
