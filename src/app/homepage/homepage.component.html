@@ -35,7 +35,7 @@
     <ul>
         <li *ngFor="let item of data; let i = index">
             <div class='post'>
-                <div>{{i}} {{item.data.subreddit }}</div>
+                <div>{{i}} subreddit: {{ item.data.subreddit }}</div>
                 <!--<div class='post-header'>
                     <img class="thumbnail" [src]="item.data.thumbnail" *ngIf="item.data.thumbnail !== 'null'; else elseBlock">
                     <ng-template #elseBlock>
