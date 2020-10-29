@@ -1,16 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { APIService } from '../api.service';
-//import { map, flatMap } from 'rxjs/operators';
-import { DomSanitizer } from  '@angular/platform-browser';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
-//import { FormControl } from '@angular/forms';
-//import { MatAccordion } from '@angular/material/expansion';
-//import { MatFormFieldModule } from '@angular/material/form-field';
 
-interface Sort {
-  id: number;
-  value: string;
-}
+import { DomSanitizer } from  '@angular/platform-browser';
+import { searchParam } from '../../assets/searchParam';
 
 @Component({
   selector: 'app-homepage',
@@ -27,27 +19,21 @@ export class HomepageComponent implements OnInit {
   matchUrl: any;
   matchThumbnail: any;
 
-  selectSort:string="hot";
-  numPost: string = '25';
-  subreddit: string = "";
 
-  queryForm = new FormGroup({
+  // param:searchParam = {
+  //   subreddit: "apple",
+  //   numPost: 25,
+  //   sortBy: "hot"
+  // };
+  
+
+  /*queryForm = new FormGroup({
     numPostForm: new FormControl(this.numPost,Validators.required),
     subredditForm: new FormControl(this.subreddit),
     selectSortForm: new FormControl(this.selectSort), 
-  });
+  });*/
 
  
-
-  sortBy: Sort[] = [
-    {value:'hot', id:1},
-    {value:"new", id:2},
-    {value:"rising",id:3},
-    {value:"controversial",id:4},
-    {value:"top",id:5},
-    {value:"gilded",id:6},
-    {value:"wiki",id:7}
-  ];
   
 
   thumbnailPlaceholder="../../assets/images/thumbnail_placeholder.jpg";
@@ -95,7 +81,9 @@ export class HomepageComponent implements OnInit {
       this.cleanData(data);
     })
   }
-
+  returnSearchFormValue(value) {
+    return this.getSubredditPost(value.subreddit,value.sortBy,value.numPost);
+  }
 
   getSubredditPost(subreddit:string, selectSort:string, numPost:string){
     /*return this.API.getSubredditPosts(subreddit, selectSort, numPost).subscribe((data:any)=> {
@@ -106,15 +94,15 @@ export class HomepageComponent implements OnInit {
     }));
   }
 
-  onSubmit(){
-    this.subreddit = this.queryForm.value.subredditForm;
-    console.log("subreddit: " + this.subreddit);
-    this.numPost = this.queryForm.value.numPostForm;
-    console.log("numpost: " + this.numPost);
-    this.selectSort = this.queryForm.value.selectSortForm;
-    this.getSubredditPost(this.subreddit, this.selectSort,this.numPost);
-    console.warn(this.queryForm.value);
-  }
+  // onSubmit(){
+  //   this.subreddit = this.queryForm.value.subredditForm;
+  //   console.log("subreddit: " + this.subreddit);
+  //   this.numPost = this.queryForm.value.numPostForm;
+  //   console.log("numpost: " + this.numPost);
+  //   this.selectSort = this.queryForm.value.selectSortForm;
+  //   this.getSubredditPost(this.subreddit, this.selectSort,this.numPost);
+  //   console.warn(this.queryForm.value);
+  // }
 
   cleanData(data:any){
     for(let i=0; i < data.data.children.length; i++){

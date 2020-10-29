@@ -52,8 +52,6 @@ input{
     margin-right:10px;
 }
 
-
-
 .accordion {
     mat-expansion-panel{
         background:rgb(40,40,40);
@@ -63,9 +61,66 @@ input{
         background:rgb(40,40,40);
         margin: 10px 0px 10px 0px;
     }
-    
 }
 
+#search-form {
+    ::placeholder {
+        color:white;
+    }
+    .mat-input-element {
+        color: white;
+    }
+    .mat-form-field-label {
+        color: white;
+    }
+    .mat-form-field-underline {
+        background-color: white !important;
+        //color: white !important;
+    }
+    .mat-form-field-ripple {
+        background-color: slategray;
+    }
+    .mat-form-field-required-marker {
+        color: slategray;
+    } 
+
+    .mat-select-value-text{
+        color:white;
+    }
+    .mat-select-arrow {
+        color:white;
+    }
+
+    .mat-form-field.mat-focused {
+        .mat-form-field-label {
+            color: slategray;
+        }
+        .mat-form-field-ripple {
+            background-color: slategray;
+        }
+        .mat-form-field-required-marker {
+            color: slategray;
+        }
+        .mat-input-element {
+            color: white;
+        }
+    }
+
+    .mat-form-field.mat-form-field-invalid {
+        .mat-input-element {
+            color: #ff33cc;
+        }
+        .mat-form-field-label {
+            color: #ff33cc;
+            .mat-form-field-required-marker {
+                color: #ff33cc;
+            }
+        }
+        .mat-form-field-ripple {
+            background-color: #ff33cc;
+        }
+    }
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -22,14 +22,30 @@
     <p>selectedSort: {{selectSort}}</p>
     <p>selected Num Post: {{numPost}}</p>
 </form>-->
-<form [formGroup]="queryForm" (ngSubmit)="onSubmit()"> 
+<!--<form [formGroup]="queryForm" (ngSubmit)="onSubmit()"> 
     <label>/r/subreddit</label>
     <input type="text" formControlName="subredditForm" placeholder="ex. music">
+
+    <select name="selectSort" ng-model="selectSort">
+        <option value="hot">hot</option>
+        <option value="new">new</option>
+        <option value="rising">rising</option>
+        <option value="controversial">controversial</option>
+        <option value="top">top</option>
+        <option value="giled">giled</option>
+        <option value="wiki">wiki</option>
+    </select>
 
     <label>Number of Posts</label>
     <input type="text" formControlName="numPostForm" placeholder="1-100">
     <button type="submit" [disabled]="!queryForm.valid">Go</button>
-</form>
+</form>-->
+
+<app-search-header (outputParam)="returnSearchFormValue($event)"></app-search-header>
+
+
+
+
 <div>
     <mat-accordion class="accordion" multi>
     <ul>

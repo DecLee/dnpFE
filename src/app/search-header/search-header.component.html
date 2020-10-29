@@ -1,0 +1,48 @@
+<p>search-header works!</p>
+<p>{{params.subreddit}}</p>
+<p>{{params.numPost}}</p>
+<p>{{params.sortBy}}</p>
+<!-- <div class="search-header">
+    <form id="search-form" [formGroup]="queryForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Subreddit:</mat-label>
+            <input [formControl]="subredditForm" placeholder="ex: music" matInput>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>number of posts:</mat-label>
+            <input [formControl]="numPostForm" placeholder="50" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Sort by:</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let sort of sorts" [value]="sort">{{sort}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button
+    </form>
+</div> -->
+
+<div class="search-header">
+    <form id="search-form" [formGroup]="queryForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Subreddit:</mat-label>
+            <input formControlName="subredditForm" placeholder="ex: music" matInput>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>number of posts:</mat-label>
+            <input formControlName="numPostForm" placeholder="1-100" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Sort by:</mat-label>
+            <mat-select formControlName="selectSortForm">
+                <mat-option  *ngFor="let sort of sorts" [value]="sort">{{sort}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button type="submit">Go!</button>
+    </form>
+</div>    
+
+    
